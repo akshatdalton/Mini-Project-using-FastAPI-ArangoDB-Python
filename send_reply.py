@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from twilio.rest import Client
 import re
-import fastpractice
+import Movie_dattabase
 
 account_sid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
 auth_token = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'
@@ -25,19 +25,19 @@ async def sms_reply(request: Request):
 
     if len(keywords) == 2:
         if str(keywords[1]) == 'ACTORS':
-            list = fastpractice.all_actors_list()
+            list = Movie_database.all_actors_list()
         else:
-            list = fastpractice.all_movies_list()
+            list = Movie_database.all_movies_list()
     elif len(keywords) == 5:
         if keywords[-3] == 'ACTOR':
-            list =  fastpractice.actors_movie_list(keywords[-1])
+            list =  Movie_database.actors_movie_list(keywords[-1])
         else:
-            list =  fastpractice.movie_actor_list(keywords[-1])
+            list =  Movie_database.movie_actor_list(keywords[-1])
     else:
         if keywords[-3] == 'DIRECTOR':
-            list = fastpractice.actor_director_list(keywords[3], keywords[-1])
+            list = Movie_database.actor_director_list(keywords[3], keywords[-1])
         elif keywords[-3] == 'ACTOR':
-            list = fastpractice.actors_common_list(keywords[3], keywords[-1])
+            list = Movie_database.actors_common_list(keywords[3], keywords[-1])
         else:
             list = {'Try Something Else'}
 
